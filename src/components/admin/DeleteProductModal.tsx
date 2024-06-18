@@ -38,7 +38,7 @@ const DeleteProductModal: React.FC<DeleteConfirmationModalProps> = ({
   const handleClose = () => {
     if (deleted) {
       onClose();
-      router.push("/adminHome");
+      router.push("/admin/home");
     } else {
       setDeleted(false);
       onClose();

@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { Grid, CardContent } from "@mui/material";
+import { Grid, CardContent, Button } from "@mui/material";
 import { ProductContext } from "../../contexts/ProductContext";
 import { ProductCardContainer } from "../../styles";
 import { AdminHeader } from "../common/Header";
-import { CustomButton, CustomTypography } from "../../features/components";
+import { CustomTypography, CustomButton } from "../../features/components";
 import { useProducts } from "../../lib/hooks";
 
 const AdminHome: React.FC = () => {
@@ -16,9 +15,9 @@ const AdminHome: React.FC = () => {
     typeof window !== "undefined" ? localStorage.getItem("auth") : null;
 
   useEffect(() => {
-    // ログインしていない場合は /admin にリダイレクト
+    // ログインしていない場合は /login?isAdmin=true にリダイレクト
     if (!auth) {
-      router.push("/admin");
+      router.push("/login?isAdmin=true");
     }
   }, [auth, router]);
 
@@ -27,6 +26,14 @@ const AdminHome: React.FC = () => {
     setProducts(products);
   }, [products, setProducts]);
 
+  const handleAddProduct = () => {
+    router.push("/admin/addProduct");
+  };
+
+  const handleProductDetail = (productId: number) => {
+    router.push(`/admin/productDetail/${productId}`);
+  };
+
   return (
     <>
       <AdminHeader />
@@ -34,33 +41,29 @@ const AdminHome: React.FC = () => {
         <CustomTypography variant="h4" text="商品一覧" />
         <Grid container justifyContent="flex-end" style={{ marginBottom: 20 }}>
           <Grid item>
-            <Link href="/adminAddProduct" passHref>
-              <a style={{ textDecoration: "none" }}>
-                <CustomButton label="商品新規登録" />
-              </a>
-            </Link>
+            <CustomButton label="商品新規登録" onClick={handleAddProduct} />
           </Grid>
         </Grid>
         <Grid container justifyContent="center">
           {products.map((product) => (
             <Grid item key={product.id} xs={12} style={{ marginBottom: 20 }}>
-              <Link href={`/adminProductDetail/${product.id}`} passHref>
-                <a style={{ textDecoration: "none" }}>
-                  <ProductCardContainer>
-                    <CardContent style={{ textAlign: "center" }}>
-                      <CustomTypography variant="h6" text={product.name} />
-                      <CustomTypography
-                        variant="subtitle1"
-                        text={`価格: ${product.price} 円`}
-                      />
-                      <CustomTypography
-                        variant="body2"
-                        text={product.content}
-                      />
-                    </CardContent>
-                  </ProductCardContainer>
-                </a>
-              </Link>
+              <ProductCardContainer>
+                <CardContent style={{ textAlign: "center" }}>
+                  <CustomTypography variant="h6" text={product.name} />
+                  <CustomTypography
+                    variant="subtitle1"
+                    text={`価格: ${product.price} 円`}
+                  />
+                  <CustomTypography variant="body2" text={product.content} />
+                </CardContent>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleProductDetail(product.id)}
+                >
+                  詳細を見る
+                </Button>
+              </ProductCardContainer>
             </Grid>
           ))}
         </Grid>

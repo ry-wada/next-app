@@ -142,7 +142,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // ログイン後のリダイレクト
       switch (admin) {
         case true:
-          router.push("/adminHome");
+          router.push("/admin/home");
           break;
         case false:
           router.push("/");

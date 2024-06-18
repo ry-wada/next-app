@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/user/myCart": "pages/user/myCart.js"
+  "/admin/home": "pages/admin/home.js",
+  "/admin/addProduct": "pages/admin/addProduct.js",
+  "/admin/productDetail/[id]": "pages/admin/productDetail/[id].js"
 }

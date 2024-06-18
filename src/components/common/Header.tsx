@@ -22,7 +22,7 @@ export const UserHeader: React.FC = () => {
   const { cartItems } = useContext(CartContext); // カート内の商品を取得
 
   const handleCart = () => {
-    router.push("user/myCart");
+    router.push("/user/myCart");
   };
 
   const handleLogout = () => {
@@ -71,7 +71,11 @@ export const UserHeader: React.FC = () => {
               horizontal: "center",
             }}
           >
-            <MenuItem component={Link} href="user/myPage" onClick={handleClose}>
+            <MenuItem
+              component={Link}
+              href="/user/myPage"
+              onClick={handleClose}
+            >
               マイページ
             </MenuItem>
             {isLoggedIn ? (
@@ -105,7 +109,7 @@ export const AdminHeader: React.FC = () => {
         <Typography
           variant="h6"
           component={Link}
-          href="/adminHome"
+          href="/admin/home"
           style={{ textDecoration: "none", color: "white" }}
         >
           管理画面

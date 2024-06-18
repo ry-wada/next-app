@@ -17,12 +17,13 @@ const Login: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const router = useRouter();
-  const { str } = router.query; // クエリからidを取得
+  const { isAdmin: queryIsAdmin } = router.query; // クエリからisAdminを取得
 
   useEffect(() => {
-    const params = new URLSearchParams(str as string);
-    setIsAdmin(params.get("isAdmin") === "true");
-  }, [router.query]);
+    if (queryIsAdmin === "true") {
+      setIsAdmin(true);
+    }
+  }, [queryIsAdmin]);
 
   const handleLogin = async () => {
     if (email === "") {
@@ -76,7 +77,7 @@ const Login: React.FC = () => {
         <br />
         {!isAdmin && (
           <CustomButton
-            onClick={() => handleAdminLoginRedirect()}
+            onClick={handleAdminLoginRedirect}
             label="管理者としてログイン"
             color="warning"
           />
