@@ -4,7 +4,7 @@
 export const APIパス = "http://localhost:8080/api";
 
 // 画像のベースURL
-export const IMAGEパス = "/src/picture/image";
+export const IMAGEパス = "/picture/image";
 
 //各種サイトURL
 export const URLs = {
